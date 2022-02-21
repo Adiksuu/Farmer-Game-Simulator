@@ -9,8 +9,6 @@ To download it, just download the file game.py above.
 ### 💙 PAID (FULL ACCESS) VERSION
 The paid version of the game (FULL ACCESS) has access to many interesting options, of which there are still more and more! You can get the paid version after winning contests on my discord server or by purchasing it for $ 5. To purchase the game, please contact me via email or discord
 
-### 🖼️ GAME SCREENSHOTS
-
 ### ❔ HOW TO USE
 To play the game, all you have to do is download it 
 
@@ -23,3 +21,9 @@ Now you need to import the "colorama" module to your computer, to do this enter 
 After going through the previous steps, enter the game path by using the "cd folder_name" command, e.g. cd desktop -> cd pythonGame, you must enter this command in cmd. 
 
 The last step has come and at the same time the simplest because all you have to do is enter the command "py game.py" in The last step has come and at the same time the simplest because all you have to do is enter the command "py game.py" in cmd and then wait until the game loads! 
+
+### 🖼️ GAME SCREENSHOTS
+<details>
+<summary> 🕹️ Click for spoiler game sreenshots</summary>
+
+</details>
