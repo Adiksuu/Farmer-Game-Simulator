@@ -3,7 +3,7 @@ It's a Farmer Game Simulator!
 The game was made using Python. The project is constantly being developed! 
 
 ### 💚 FREE (DEMO) VERSION
-The free game (DEMO) does not have all the options such as saving, loading, more items in the store, quests and much The free game (DEMO) does not have all the options such as saving, loading, more items in the store, quests and much more.
+The free game (DEMO) does not have all the options such as saving, loading, more items in the store, quests and much The free game (DEMO) does not have all the options such as  more items in the store, quests and much more.
 To download it, just download the file game.py above. 
 
 ### 💙 PAID (FULL ACCESS) VERSION
