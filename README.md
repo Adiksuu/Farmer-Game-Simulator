@@ -7,7 +7,7 @@ The free game (DEMO) does not have all the options such as saving, loading, more
 To download it, just download the file game.py above. 
 
 ### 💙 PAID (FULL ACCESS) VERSION
-The paid version of the game (FULL ACCESS) has access to many interesting options, of which there are still more and more! You can get the paid version after winning contests on my discord server or by purchasing it for $ 2. (only paysafecard) To purchase the game, please contact me via email or discord
+The paid version of the game (FULL ACCESS) has access to many interesting options, of which there are still more and more! You can get the paid version after winning contests on my discord server.
 
 ### ❔ HOW TO USE
 To play this game, just download it (preferably its latest version)
