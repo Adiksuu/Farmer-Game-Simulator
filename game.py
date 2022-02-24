@@ -7,7 +7,13 @@ colorama.init
 # ------------------ (       ANY VARIABLES      ) ------------------
 
 carrot = 0
+carrot_name = 'banan'
+carrot_name_level = 1
+carrot_name_cost = 500
 cash = 0
+
+bp_multi = 1
+bp_multi_up = bp_multi + 1
 
 bag_capility = 15
 carrot_grow = 1
@@ -28,9 +34,9 @@ free_bag = False
 
 while game_start == True:
     print('')
-    print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FARMER GAME v1.2 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FARMER GAME v1.3 ' + Fore.LIGHTGREEN_EX + ')=---')
     print(Fore.LIGHTGREEN_EX + '  ---=( ' + Fore.GREEN + 'DEMO EDITION ' + Fore.LIGHTGREEN_EX + ')=---')
-    print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FARMER GAME v1.2 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FARMER GAME v1.3 ' + Fore.LIGHTGREEN_EX + ')=---')
     print('')
 
     game_menu = True
@@ -38,11 +44,41 @@ while game_start == True:
 # ------------------ (     GAME MENU - WHILE     ) -----------------
     
     while game_menu == True:
+
+        if carrot_name_level == 1:
+            carrot_name = 'carrots'
+            cnn = 'melons'
+        elif carrot_name_level == 2:
+            carrot_name = 'melons'
+            cnn = 'tomatos'
+            bp_multi = 2
+            bp_multi_up = bp_multi + 1
+        elif carrot_name_level == 3:
+            carrot_name = 'tomatos'
+            cnn = 'potatoes'
+            bp_multi = 3
+            bp_multi_up = bp_multi + 1
+        elif carrot_name_level == 4:
+            carrot_name = 'potatoes'
+            cnn = 'pumpkins'
+            bp_multi = 4
+            bp_multi_up = bp_multi + 1
+        elif carrot_name_level == 5:
+            carrot_name = 'pumpkins'
+            cnn = 'MAX UPGRADE LEVEL'
+            bp_multi = 5
+            bp_multi_up = bp_multi + 1
+
+            if bp_multi_up == 6:
+                bp_multi_up = 5
+
+            carrot_name_cost = 'MAX UPGRADE LEVEL'
+
         print('')
         print(Fore.BLUE + '---=( ' + Fore.LIGHTBLUE_EX + 'SELECT OPTION ' + Fore.BLUE + ')=---')
         print('')
-        print(Fore.CYAN + '1. ' + Fore.LIGHTCYAN_EX + 'Make a carrot')
-        print(Fore.CYAN + '2. ' + Fore.LIGHTCYAN_EX + 'Sell a carrots')
+        print(Fore.CYAN + '1. ' + Fore.LIGHTCYAN_EX + 'Make a ' + str(carrot_name))
+        print(Fore.CYAN + '2. ' + Fore.LIGHTCYAN_EX + 'Sell a ' + str(carrot_name))
         print(Fore.CYAN + '3. ' + Fore.LIGHTCYAN_EX + 'Upgrades')
         print(Fore.CYAN + '4. ' + Fore.LIGHTCYAN_EX + 'Settings')
         print(Fore.CYAN + '5. ' + Fore.LIGHTCYAN_EX + 'Quit game')
@@ -58,23 +94,23 @@ while game_start == True:
                 carrot = carrot + carrot_grow
                 if carrot == bag_capility:
                     print('')
-                    print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' Carrots.' + Fore.LIGHTMAGENTA_EX + ' Sell Carrots!')
+                    print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name) + '!')
                 print('')
                 if carrot > bag_capility:
                     carrot = bag_capility
-                print(Fore.CYAN + 'You have: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' Carrots')
+                print(Fore.CYAN + 'You have: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' ' + str(carrot_name))
             elif carrot >= bag_capility:
                 print('')
-                print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX +
-                      str(bag_capility) + Fore.MAGENTA + ' Carrots.' + Fore.LIGHTMAGENTA_EX + ' Sell Carrots!')
+                print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name))
 
         elif selected_option == '2':
             if carrot > 0:
                 print('')
                 print(Fore.MAGENTA + '---=( ' + Fore.LIGHTMAGENTA_EX + 'Selled!' + Fore.MAGENTA + ' )=---')
                 print('')
-                print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + 'You sold: ' + str(carrot) + Fore.MAGENTA + ' Carrots')
-                cash = cash + carrot
+                print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + 'You sold: ' +
+                      str(carrot) + Fore.MAGENTA + ' (x' + str(bp_multi) + ') Carrots')
+                cash = cash + carrot * bp_multi
                 carrot = carrot - carrot
                 print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + 'You has: ' + str(cash) + Fore.MAGENTA + ' Cash')
                 print('')
@@ -83,7 +119,7 @@ while game_start == True:
                 print('')
                 print(Fore.MAGENTA + '---=( ' + Fore.LIGHTMAGENTA_EX + 'Selled!' + Fore.MAGENTA + ' )=---')
                 print('')
-                print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + "You don't have any carrots " + Fore.MAGENTA + str(carrot) + ' / ' + str(bag_capility))
+                print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + "You don't have any " + str(carrot_name) + ' ' + Fore.MAGENTA + str(carrot) + ' / ' + str(bag_capility))
                 print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + 'You has: ' + str(cash) + Fore.MAGENTA + ' Cash')
                 print('')
                 print(Fore.MAGENTA + '---=( ' + Fore.LIGHTMAGENTA_EX + 'Selled!' + Fore.MAGENTA + ' )=---')
@@ -91,10 +127,14 @@ while game_start == True:
             print('')
             print(Fore.LIGHTCYAN_EX + '---=( ' + Fore.CYAN + 'UPGRADES' + Fore.LIGHTCYAN_EX + ' )=---')
             print('')
-            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '1.' + Fore.LIGHTGREEN_EX + ' Upgrade a bag.' + Fore.GREEN + ' You have now: ' + str(bag_capility) + ' capitality.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(bag_capility) + ' --> ' + str(bag_capility_upgrade) + ' capitality.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(bag_capility_cost) + ' cash')
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '1.' + Fore.LIGHTGREEN_EX + ' Upgrade a bag.' + Fore.GREEN + ' You have now: ' + str(bag_capility) + ' capitality.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(bag_capility) + ' --> ' + str(bag_capility_upgrade) + ' capitality.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(bag_capility_cost))
 
-            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '2.' + Fore.LIGHTGREEN_EX + ' Upgrade a carrot.' + Fore.GREEN + ' You have now: ' + str(carrot_grow) + ' per click.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(carrot_grow) + ' --> ' + str(carrot_grow_upgrade) + ' per click.'
-            + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(carrot_grow_cost) + ' cash')
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '2.' + Fore.LIGHTGREEN_EX + ' Upgrade a ' + str(carrot_name) + '.' + Fore.GREEN + ' You have now: ' + str(carrot_grow) + ' per click.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(carrot_grow) + ' --> ' + str(carrot_grow_upgrade) + ' per click.'
+            + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(carrot_grow_cost))
+
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '3.' + Fore.LIGHTGREEN_EX + ' Upgrade a ' + str(carrot_name) + ' name.' + Fore.GREEN + ' Name now: ' + str(carrot_name) + ' (x' + str(bp_multi) + ') per sell.' +
+                  '.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(carrot_name) + ' --> ' + str(cnn) + ' (x' + str(bp_multi_up) + ') per sell.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(carrot_name_cost))
+
             print('')
 
             upgrade_selected = input(Fore.CYAN + 'Upgrade selected: ')
@@ -118,6 +158,21 @@ while game_start == True:
                 else:
                     print('')
                     print(Fore.RED + "You don't have " + str(carrot_grow_cost) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(carrot_grow_cost) + ' cash')
+
+            elif upgrade_selected == '3':
+                if carrot_name != 'pumpkins':
+                    if cash >= carrot_name_cost:
+                        carrot_name_level = carrot_name_level + 1
+                        carrot_name_cost = carrot_name_cost * 5
+                        cash = cash - carrot_name_cost
+                    else:
+                        print('')
+                        print(Fore.RED + "You don't have " + str(carrot_name_cost) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(carrot_name_cost) + ' cash')
+
+                else:
+                    print('')
+                    print(Fore.RED + '>>> You have a max level of this item name!')
+
             else:
                 print('')
 
