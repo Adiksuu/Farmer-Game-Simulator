@@ -2,7 +2,7 @@
 It's a Farmer Game Simulator! 
 The game was made using Python. The project is constantly being developed! 
 
-### 💚 FREE (DEMO) VERSION
+### 💚 FREE VERSION
 Previously, the game had version 2! DEMO and FULL ACCESS, currently the full version of the game has been moved to the demo version because there was no point in making 2 different versions of the game!
 To download it, just download the file game.py above. 
 
