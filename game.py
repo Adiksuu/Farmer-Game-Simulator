@@ -1,6 +1,5 @@
 # ------------------ ( COLORAMA IMPORT - MODULES ) -----------------
 
-from asyncore import loop
 import colorama
 from colorama import Fore
 colorama.init
@@ -15,7 +14,7 @@ carrot = 0
 carrot_name = 'banan'
 carrot_name_level = 1
 carrot_name_cost = 500
-cash = 1000000
+cash = 0
 
 bp_multi = 1
 bp_multi_up = bp_multi + 1
@@ -50,27 +49,90 @@ house_level_max = 5
 house_level_next = 2
 house_cost = 3000
 
-energy = 20
+energy = 60
 max_energy = 100
 house_energy = 10
 house_energy_next = 20
 energy_remover = 1
+
+day_time = 0
+night = False
 
 # ------------------ (     GAME START - WHILE    ) -----------------
 
 while game_start == True:
 
     print('')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6.1 ' + Fore.LIGHTGREEN_EX + ')=---')
     print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FULL ACCESS VERSION ' + Fore.LIGHTGREEN_EX + ')=---')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6.1 ' + Fore.LIGHTGREEN_EX + ')=---')
     print('')
 
     game_menu = True
 
 # ------------------ (     GAME MENU - WHILE     ) -----------------
-    
+
     while game_menu == True:
+
+        if day_time >= 24:
+            night = True
+            day_time = 24
+        else:
+            night = False
+
+        if night == True:
+            if energy <= 25:
+                carrot = 0
+                carrot_name = 'banan'
+                carrot_name_level = 1
+                carrot_name_cost = 500
+                cash = 0
+
+                bp_multi = 1
+                bp_multi_up = bp_multi + 1
+
+                bag_capility = 15
+                carrot_grow = 1
+                bag_capility_upgrade = 35
+                carrot_grow_upgrade = 2
+                bag_capility_cost = 50
+                carrot_grow_cost = 75
+
+                farmer = 0
+                farmer_up = 0.25
+                farmer_cost = 750
+                farmer_lvl = 0
+                farmer_counter = 0
+
+                ver_info_settings = 'True'
+
+                game_start = True
+                game_menu = True
+
+                free_money = False
+                free_money_2 = False
+                free_money_3 = False
+                free_money_4 = False
+                free_bag = False
+
+                house_selected = False
+                house_level = 1
+                house_level_max = 5
+                house_level_next = 2
+                house_cost = 3000
+
+                energy = 100
+                max_energy = 100
+                house_energy = 10
+                house_energy_next = 20
+                energy_remover = 1
+
+                day_time = 0
+                night = False
+                print(Fore.LIGHTRED_EX + '>>> ' + Fore.RED + "You die, because night came and you didn't have enough energy. You lost all!")
+            print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'The night has come!')
+        else:
+            night = False    
 
         if house_level == 1:
             house_energy = 10
@@ -162,6 +224,7 @@ while game_start == True:
                 if carrot < bag_capility:
                     carrot = carrot + carrot_grow
                     energy = energy - energy_remover
+                    day_time = day_time + 1
                     if carrot == bag_capility:
                         print('')
                         print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name) + '!')
@@ -310,6 +373,7 @@ while game_start == True:
                                     print('')
                                     print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
                                     energy = energy - energy_remover * 2
+                                    day_time = day_time + 0.5
                                     time.sleep(1)
 
                         elif farmer_counter_loop == '30s':
@@ -324,6 +388,7 @@ while game_start == True:
                                     print('')
                                     print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
                                     energy = energy - energy_remover * 2
+                                    day_time = day_time + 0.5
                                     time.sleep(1)
 
                         elif farmer_counter_loop == '60s':
@@ -338,6 +403,7 @@ while game_start == True:
                                     print('')
                                     print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
                                     energy = energy - energy_remover * 2
+                                    day_time = day_time + 0.5
                                     time.sleep(1)
 
                         else:
@@ -355,6 +421,7 @@ while game_start == True:
                                     print('')
                                     print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
                                     energy = energy - energy_remover * 2
+                                    day_time = day_time + 0.5
                                     time.sleep(1)
 
                     else:
@@ -389,6 +456,7 @@ while game_start == True:
                     print(Fore.YELLOW + '---=( PROFILE )=---')
                     print('')
                     print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' You has: ' + str(cash) + Fore.BLUE + ' cash. ')
+                    print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' The time is now: ' + str(day_time) + ' / 24h ')
                     print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' You has: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' capitality.')
                     print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' Your energy: ' + str(energy) + ' / ' + str(max_energy) + Fore.BLUE + ' energy.')
                     print('')
@@ -397,13 +465,17 @@ while game_start == True:
                 elif house_function == '2':
                     if house_level == 1:
                         if energy < max_energy:
-                            if energy <= 40:
-                                energy = energy + house_energy
-                                print('')
-                                print(Fore.MAGENTA + 'You were a sleep, you regained ' + Fore.LIGHTMAGENTA_EX + str(house_energy))
+                            if energy <= 80:
+                                if day_time >= 6:
+                                    energy = energy + house_energy
+                                    day_time = day_time - 6
+                                    print('')
+                                    print(Fore.MAGENTA + 'You were a sleep, you regained ' + Fore.LIGHTMAGENTA_EX + str(house_energy))
+                                else:
+                                    print(Fore.RED + 'It must be after 6:00 to go to bed')
                             else:
                                 print('')
-                                print(Fore.RED + '>>> You must has 40 energy or lower')
+                                print(Fore.RED + '>>> You must has 80 energy or lower')
                         else:
                             print('')
                             print(Fore.RED + '>>> You have a max energy!')
