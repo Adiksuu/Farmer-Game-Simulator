@@ -7,13 +7,15 @@ colorama.init
 
 import time
 
+import random
+
 # ------------------ (       ANY VARIABLES      ) ------------------
 
 carrot = 0
 carrot_name = 'banan'
 carrot_name_level = 1
 carrot_name_cost = 500
-cash = 0
+cash = 1000000
 
 bp_multi = 1
 bp_multi_up = bp_multi + 1
@@ -31,22 +33,37 @@ farmer_cost = 750
 farmer_lvl = 0
 farmer_counter = 0
 
-ver_info_settings = True
+ver_info_settings = 'True'
 
 game_start = True
 game_menu = True
 
 free_money = False
 free_money_2 = False
+free_money_3 = False
+free_money_4 = False
 free_bag = False
+
+house_selected = False
+house_level = 1
+house_level_max = 5
+house_level_next = 2
+house_cost = 3000
+
+energy = 20
+max_energy = 100
+house_energy = 10
+house_energy_next = 20
+energy_remover = 1
 
 # ------------------ (     GAME START - WHILE    ) -----------------
 
 while game_start == True:
+
     print('')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.4 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6 ' + Fore.LIGHTGREEN_EX + ')=---')
     print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FULL ACCESS VERSION ' + Fore.LIGHTGREEN_EX + ')=---')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.4 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6 ' + Fore.LIGHTGREEN_EX + ')=---')
     print('')
 
     game_menu = True
@@ -54,6 +71,32 @@ while game_start == True:
 # ------------------ (     GAME MENU - WHILE     ) -----------------
     
     while game_menu == True:
+
+        if house_level == 1:
+            house_energy = 10
+            house_cost = 3000
+            house_energy_next = 20
+            house_level_next = 2
+        elif house_level == 2:
+            house_energy = 20
+            house_cost = 7500
+            house_energy_next = 25
+            house_level_next = 3
+        elif house_level == 3:
+            house_energy = 25
+            house_cost = 12500
+            house_energy_next = 30
+            house_level_next = 4
+        elif house_level == 4:
+            house_energy = 30
+            house_cost = 17500
+            house_energy_next = '35'
+            house_level_next = '5'
+        elif house_level == 5:
+            house_energy = 35
+            house_cost = 'MAX UPGRADE LEVEL'
+            house_energy_next = 'MAX UPGRADE LEVEL'
+            house_level_next = 'MAX UPGRADE LEVEL'
 
         if carrot_name_level == 1:
             carrot_name = 'carrots'
@@ -92,6 +135,9 @@ while game_start == True:
                 bp_multi_up = 7
             carrot_name_cost = 'MAX UPGRADE LEVEL'
 
+        if energy <= 0:
+            energy = 0
+
         print('')
         print(Fore.BLUE + '---=( ' + Fore.LIGHTBLUE_EX + 'SELECT OPTION ' + Fore.BLUE + ')=---')
         print('')
@@ -102,6 +148,7 @@ while game_start == True:
         print(Fore.CYAN + '5. ' + Fore.LIGHTCYAN_EX + 'Farmer Machine')
         print(Fore.CYAN + '6. ' + Fore.LIGHTCYAN_EX + 'Quit game')
         print(Fore.CYAN + '7. ' + Fore.LIGHTCYAN_EX + 'Enter Code')
+        print(Fore.CYAN + '8. ' + Fore.LIGHTCYAN_EX + 'Go home')
         print('')
 
         selected_option = input(Fore.BLUE + '>>> ' + Fore.LIGHTBLUE_EX + 'SELECTED OPTION: ')
@@ -109,18 +156,22 @@ while game_start == True:
 # ------------------ (     GAME MENU - IF'S     ) -----------------
 
         if selected_option == '1':
-            if carrot < bag_capility:
-                carrot = carrot + carrot_grow
-                if carrot == bag_capility:
+            if energy <= 0:
+                print(Fore.RED + ">>> You can't work! Don't have energy!")
+            else:
+                if carrot < bag_capility:
+                    carrot = carrot + carrot_grow
+                    energy = energy - energy_remover
+                    if carrot == bag_capility:
+                        print('')
+                        print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name) + '!')
                     print('')
-                    print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name) + '!')
-                print('')
-                if carrot > bag_capility:
-                    carrot = bag_capility
-                print(Fore.CYAN + 'You have: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' ' + str(carrot_name))
-            elif carrot >= bag_capility:
-                print('')
-                print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name))
+                    if carrot > bag_capility:
+                        carrot = bag_capility
+                    print(Fore.CYAN + 'You have: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' ' + str(carrot_name))
+                elif carrot >= bag_capility:
+                    print('')
+                    print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name))
 
         elif selected_option == '2':
             if carrot > 0:
@@ -153,7 +204,9 @@ while game_start == True:
 
             print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '3.' + Fore.LIGHTGREEN_EX + ' Rebirth.' + Fore.GREEN + ' You has: ' + str(bp_multi) + ' rebirths.' + Fore.LIGHTGREEN_EX + ' After rebirth: ' + Fore.GREEN + str(carrot_name) + ' (x' + str(bp_multi) + ')' + ' --> ' + str(cnn) + ' (x' + str(bp_multi_up) + ') per sell.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(carrot_name_cost))
 
-            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '4.' + Fore.LIGHTGREEN_EX + ' Auto farmer' + Fore.GREEN + ' You has: ' + str(farmer) + ' per second.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(farmer) + ' --> ' + str(farmer_up) + ' per second.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(farmer_cost))
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '4.' + Fore.LIGHTGREEN_EX + ' Auto farmer' + Fore.GREEN + ' You has: ' + str(farmer) + '/s.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(farmer) + ' --> ' + str(farmer_up) + '/s.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(farmer_cost))
+
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '5.' + Fore.LIGHTGREEN_EX + ' Upgrade a house' + Fore.GREEN + ' You have now: ' + str(house_level) + ' level.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(house_level) + ' (' + str(house_energy) + ' energy per sleep) level' + ' --> ' + str(house_level_next) + ' (' + str(house_energy_next) + ' energy per sleep) level.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(house_cost))
 
             print('')
 
@@ -178,6 +231,18 @@ while game_start == True:
                 else:
                     print('')
                     print(Fore.RED + "You don't have " + str(carrot_grow_cost) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(carrot_grow_cost) + ' cash')
+
+            elif upgrade_selected == '5':
+                if house_level != 5:
+                    if cash >= house_cost:
+                        house_level = house_level + 1
+                        cash = cash - house_cost
+                    else:
+                        print('')
+                        print(Fore.RED + "You don't have " + str(house_cost) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(house_cost) + ' cash')
+                else:
+                    print('')
+                    print(Fore.LIGHTRED_EX + '>>> ' + Fore.RED + 'You have a max level of house!')
 
             elif upgrade_selected == '3':
                 if carrot_name != 'pees':
@@ -221,60 +286,82 @@ while game_start == True:
             print('')
             print(Fore.YELLOW + '---=( SETTINGS )=---')
 
-            if ver_info_settings == True:
-                ver_info_settings = False
-                ver_info = 'On'
-            elif ver_info_settings == False:
-                ver_info_settings = True
-                ver_info = 'Off'
-
-            # print(Fore.LIGHTGREEN_EX + '1. ' + Fore.GREEN + 'Version info: ' + Fore.LIGHTCYAN_EX + str(ver_info))
 
         elif selected_option == '5':
-            if farmer_lvl >= 1:
-                print('')
-                farmer_select = input(Fore.GREEN + 'You want to use farmer? (yes or no) ')
-                if farmer_select == 'yes':
-                    farmer_counter_loop = input(Fore.BLUE + 'Earning for (10s / 30s / 60s): ')
-                    farmer_counter = 0
-                    
-                    if farmer_counter_loop == '10s':
-                        while farmer_counter != 10:
-                            cash = cash + farmer
+            if energy <= 0:
+                print(Fore.RED + ">>> You can't work! Don't have energy!")
+            else:
+                if farmer_lvl >= 1:
+                    print('')
+                    farmer_select = input(Fore.GREEN + 'You want to use farmer? (yes or no) ')
+                    if farmer_select == 'yes':
+                        farmer_counter_loop = input(Fore.BLUE + 'Earning for (10s / 30s / 60s): ')
+                        farmer_counter = 0
+                        
+                        if farmer_counter_loop == '10s':
+                            while farmer_counter != 10:
+                                if energy <= 0:
+                                    print(Fore.RED + ">>> You can't work! Don't have energy!")
+                                    break
+                                else:
+                                    cash = cash + farmer
+                                    farmer_counter = farmer_counter + 1
+                                    farmer_left = 10 - farmer_counter
+                                    print('')
+                                    print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
+                                    energy = energy - energy_remover * 2
+                                    time.sleep(1)
+
+                        elif farmer_counter_loop == '30s':
+                            while farmer_counter != 30:
+                                if energy <= 0:
+                                    print(Fore.RED + ">>> You can't work! Don't have energy!")
+                                    break
+                                else:
+                                    cash = cash + farmer
+                                    farmer_counter = farmer_counter + 1
+                                    farmer_left = 30 - farmer_counter
+                                    print('')
+                                    print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
+                                    energy = energy - energy_remover * 2
+                                    time.sleep(1)
+
+                        elif farmer_counter_loop == '60s':
+                            while farmer_counter != 60:
+                                if energy <= 0:
+                                    print(Fore.RED + ">>> You can't work! Don't have energy!")
+                                    break
+                                else:
+                                    cash = cash + farmer
+                                    farmer_counter = farmer_counter + 1
+                                    farmer_left = 60 - farmer_counter
+                                    print('')
+                                    print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
+                                    energy = energy - energy_remover * 2
+                                    time.sleep(1)
+
+                        else:
                             print('')
-                            print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash')
-                            farmer_counter = farmer_counter + 1
-                            time.sleep(1)
-
-                    elif farmer_counter_loop == '30s':
-                        while farmer_counter != 30:
-                            cash = cash + farmer
-                            print(cash)
-                            farmer_counter = farmer_counter + 1
-                            time.sleep(1)
-
-                    elif farmer_counter_loop == '60s':
-                        while farmer_counter != 60:
-                            cash = cash + farmer
-                            print(cash)
-                            farmer_counter = farmer_counter + 1
-                            time.sleep(1)
+                            print(Fore.RED + '>>> Incorrect number! Automatically selected 10s!')
+                            print('')
+                            while farmer_counter != 10:
+                                if energy <= 0:
+                                    print(Fore.RED + ">>> You can't work! Don't have energy!")
+                                    break
+                                else:
+                                    cash = cash + farmer
+                                    farmer_counter = farmer_counter + 1
+                                    farmer_left = 10 - farmer_counter
+                                    print('')
+                                    print(Fore.LIGHTBLUE_EX + 'You earn ' + str(farmer) + ' cash !' + Fore.CYAN + ' You has: ' + str(cash) + ' cash. Left: ' + str(farmer_left) + ' seconds!')
+                                    energy = energy - energy_remover * 2
+                                    time.sleep(1)
 
                     else:
                         print('')
-                        print(Fore.RED + '>>> Incorrect number! Automatically selected 10s!')
-                        print('')
-                        while farmer_counter != 10:
-                            cash = cash + farmer
-                            print(cash)
-                            farmer_counter = farmer_counter + 1
-                            time.sleep(1)
-
                 else:
                     print('')
-            else:
-                print('')
-                print(Fore.RED + ">>> You don't have farmer! Buy it on upgrade!")
+                    print(Fore.RED + ">>> You don't have farmer! Buy it on upgrade!")
 
         elif selected_option == '6':
             print('')
@@ -282,6 +369,48 @@ while game_start == True:
             print('')
             game_start = False
             game_menu = False
+
+        elif selected_option == '8':
+            house_selected = True
+            while house_selected == True:
+                print('')
+                print(Fore.GREEN + '#' * 19)
+                print(Fore.LIGHTGREEN_EX + '  HOUSE & PROFILE')
+                print(Fore.GREEN + '#' * 19)
+                print('')
+                print(Fore.LIGHTBLUE_EX + '1. ' + Fore.BLUE + 'My Profile')
+                print(Fore.LIGHTBLUE_EX + '2. ' + Fore.BLUE + 'Go Sleep')
+                print(Fore.LIGHTBLUE_EX + '3. ' + Fore.BLUE + 'Quit Home')
+                print('')
+                house_function = input(Fore.BLUE + '>>> ' + Fore.LIGHTBLUE_EX + 'SELECTED OPTION: ')
+
+                if house_function == '1':
+                    print('')
+                    print(Fore.YELLOW + '---=( PROFILE )=---')
+                    print('')
+                    print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' You has: ' + str(cash) + Fore.BLUE + ' cash. ')
+                    print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' You has: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' capitality.')
+                    print(Fore.CYAN + '>>>' + Fore.LIGHTBLUE_EX + ' Your energy: ' + str(energy) + ' / ' + str(max_energy) + Fore.BLUE + ' energy.')
+                    print('')
+                    print(Fore.YELLOW + '---=( PROFILE )=---')
+
+                elif house_function == '2':
+                    if house_level == 1:
+                        if energy < max_energy:
+                            if energy <= 40:
+                                energy = energy + house_energy
+                                print('')
+                                print(Fore.MAGENTA + 'You were a sleep, you regained ' + Fore.LIGHTMAGENTA_EX + str(house_energy))
+                            else:
+                                print('')
+                                print(Fore.RED + '>>> You must has 40 energy or lower')
+                        else:
+                            print('')
+                            print(Fore.RED + '>>> You have a max energy!')
+
+                elif house_function == '3':
+                    house_selected = False
+                    print(Fore.RED + '>>> Leaving home...')
 
         elif selected_option == '7':
             print('')        
@@ -303,6 +432,27 @@ while game_start == True:
                     free_money_2 = True
                     print(Fore.GREEN + 'Added 500cash!')
 
+                else:
+                    print('')
+                    print(Fore.RED + 'This code already used!')
+
+            elif typed_code == 'Farm3r':
+                if free_money_3 == False:
+                    carrot_grow = carrot_grow_upgrade
+                    carrot_grow_upgrade = carrot_grow_upgrade * 2
+                    carrot_grow_cost = carrot_grow_cost * 2
+                    free_money_3 = True
+                    print(Fore.GREEN + 'Free Carrot Upgrade arrived!')
+
+                else:
+                    print('')
+                    print(Fore.RED + 'This code already used!')
+
+            elif typed_code == 'Spr1ng':
+                if free_money_4 == False:
+                    cash = cash + 500
+                    free_money_4 = True
+                    print(Fore.GREEN + 'Added 500cash!')
                 else:
                     print('')
                     print(Fore.RED + 'This code already used!')
