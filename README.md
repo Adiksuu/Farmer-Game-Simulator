@@ -4,7 +4,7 @@ The game was made using Python. The project is constantly being developed!
 
 ### 💚 FREE VERSION
 Currently the full version of the game has been moved to the demo version because there was no point in making 2 different versions of the game!
-To download it, just download the file game.py above. 
+To download it, just download the file game.exe above. 
 
 ### ❔ HOW TO USE
 To play this game, just download it (preferably its latest version)
