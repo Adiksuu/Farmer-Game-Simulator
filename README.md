@@ -12,11 +12,11 @@ To download it, just download the file game.exe above.
 ・Then open the game.exe file on your computer!
 
 ### 📣 LATEST VERSION
-・In versions v1.6 and v1.6.1, a system of energy and day/night has been introduced. 
+・v1.7 is a latest version! 
 
-・When night arrives, when the player has too little energy, the whole game dies and resets! 
+▢ The barn system was introduced to the game
 
-・A new "Go home" tab has been added, which allows you to check the time, going to bed (sleeping through the night) and leaving the house (returning to the game menu) 
+▢ It consists in the fact that if the player does not have enough space in the backpack, the items go to the barn, the barn has a small amount of space, but it can be improved! You can only take items from the barn if you have more space in your backpack than there are items in the barn! 
 
 ### 🖼️ GAME SCREENSHOTS
 <details>
