@@ -11,10 +11,14 @@ import random
 # ------------------ (       ANY VARIABLES      ) ------------------
 
 carrot = 0
-carrot_name = 'banan'
+carrot_name = 'bananas'
 carrot_name_level = 1
 carrot_name_cost = 500
 cash = 0
+
+carrot_barn = 0
+barn_storage = 30
+barn_open = False
 
 bp_multi = 1
 bp_multi_up = bp_multi + 1
@@ -63,9 +67,7 @@ night = False
 while game_start == True:
 
     print('')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6.1 ' + Fore.LIGHTGREEN_EX + ')=---')
-    print(Fore.LIGHTGREEN_EX + '---=( ' + Fore.GREEN + 'FULL ACCESS VERSION ' + Fore.LIGHTGREEN_EX + ')=---')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.6.1 ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.7 - Barn Update ' + Fore.LIGHTGREEN_EX + ')=---')
     print('')
 
     game_menu = True
@@ -83,7 +85,7 @@ while game_start == True:
         if night == True:
             if energy <= 25:
                 carrot = 0
-                carrot_name = 'banan'
+                carrot_name = 'bananas'
                 carrot_name_level = 1
                 carrot_name_cost = 500
                 cash = 0
@@ -211,6 +213,7 @@ while game_start == True:
         print(Fore.CYAN + '6. ' + Fore.LIGHTCYAN_EX + 'Quit game')
         print(Fore.CYAN + '7. ' + Fore.LIGHTCYAN_EX + 'Enter Code')
         print(Fore.CYAN + '8. ' + Fore.LIGHTCYAN_EX + 'Go home')
+        print(Fore.CYAN + '9. ' + Fore.LIGHTCYAN_EX + 'Go barn')
         print('')
 
         selected_option = input(Fore.BLUE + '>>> ' + Fore.LIGHTBLUE_EX + 'SELECTED OPTION: ')
@@ -227,14 +230,33 @@ while game_start == True:
                     day_time = day_time + 1
                     if carrot == bag_capility:
                         print('')
-                        print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name) + '!')
+                        if carrot_barn != barn_storage:
+                            if barn_storage > carrot:
+                                print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Your bag is full!' + Fore.LIGHTMAGENTA_EX + ' Your ' + str(carrot_name) + ' was automatically moved to the barn!')
+                                carrot_barn = carrot_barn + carrot
+                                carrot = carrot - bag_capility
+                            else:
+                                print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'Your barn storage is too small!')
+                        elif carrot_barn >= barn_storage:
+                            print('')
+                            print(Fore.RED + '>>>' + Fore.LIGHTRED_EX + ' Your barn is full! Upgrade your barn!')
+                            carrot_barn = barn_storage
                     print('')
                     if carrot > bag_capility:
                         carrot = bag_capility
                     print(Fore.CYAN + 'You have: ' + str(carrot) + ' / ' + str(bag_capility) + Fore.BLUE + ' ' + str(carrot_name))
                 elif carrot >= bag_capility:
                     print('')
-                    print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Bag is full! You have ' + Fore.LIGHTBLUE_EX + str(bag_capility) + Fore.MAGENTA + ' ' + str(carrot_name) + Fore.LIGHTMAGENTA_EX + ' Sell ' + str(carrot_name))
+                    if carrot_barn != barn_storage:
+                        if barn_storage > carrot:
+                            print(Fore.LIGHTMAGENTA_EX + '>>> ' + Fore.MAGENTA + 'Your bag is full!' + Fore.LIGHTMAGENTA_EX + ' Your ' + str(carrot_name) + ' was automatically moved to the barn!')
+                            carrot_barn = carrot_barn + carrot
+                            carrot = carrot - bag_capility
+                        else:
+                            print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'Your barn storage is too small!')
+                    elif carrot_barn >= barn_storage:
+                        print(Fore.RED + '>>>' + Fore.LIGHTRED_EX + ' Your barn is full! Upgrade your barn!')
+                        carrot_barn = barn_storage
 
         elif selected_option == '2':
             if carrot > 0:
@@ -256,6 +278,37 @@ while game_start == True:
                 print(Fore.MAGENTA + '>>> ' + Fore.LIGHTMAGENTA_EX + 'You has: ' + str(cash) + Fore.MAGENTA + ' Cash')
                 print('')
                 print(Fore.MAGENTA + '---=( ' + Fore.LIGHTMAGENTA_EX + 'Selled!' + Fore.MAGENTA + ' )=---')
+
+        elif selected_option == '9':
+            barn_open = True
+            while barn_open == True:
+                print('')
+                print(Fore.LIGHTBLUE_EX + '>>>' + Fore.BLUE + ' Your Barn' + Fore.LIGHTBLUE_EX + ' <<<')
+                print('')
+                print(Fore.CYAN + '>>>' + Fore.BLUE + ' You have a ' + str(carrot_barn)  + ' / ' + str(barn_storage) + ' ' + str(carrot_name) + ' In Barn' + Fore.CYAN + ' Select "1" to get this ' + str(carrot_name) + '.')
+                print(Fore.CYAN + '1. ' + Fore.BLUE + 'Take my ' + str(carrot_name))
+                print('')
+                barn_selected = input(Fore.CYAN + 'Selected option: ')
+
+                if barn_selected == '1':
+                    if bag_capility >= carrot_barn:
+                        if carrot_barn != 0:
+                            if carrot == 0:
+                                carrot = carrot + carrot_barn
+                                carrot_barn = 0
+                                print('')
+                                print(Fore.CYAN + '>>> ' + Fore.BLUE + 'Moved a carrot from barn to your inventory!')
+                            else:
+                                print('')
+                                print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'You must has a 0 ' + str(carrot_name) + ' to move this!')
+                        else:
+                            print(Fore.RED + "You can't move a 0 " + str(carrot_name))
+                    elif bag_capility < carrot_barn:
+                        print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'Your bag is too small!')
+
+                else:
+                    barn_open = False
+
         elif selected_option == '3':
             print('')
             print(Fore.LIGHTCYAN_EX + '---=( ' + Fore.CYAN + 'UPGRADES' + Fore.LIGHTCYAN_EX + ' )=---')
