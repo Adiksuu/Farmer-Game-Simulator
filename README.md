@@ -12,11 +12,10 @@ To download it, just download the file game.exe above.
 ・Then open the game.exe file on your computer!
 
 ### 📣 LATEST VERSION
-・v1.7 is a latest version! 
+・v1.8 is a latest version! 
 
-▢ The barn system was introduced to the game
+▢ In v1.8, the mine system was introduced to the game! Ores can be obtained and then sold!
 
-▢ It consists in the fact that if the player does not have enough space in the backpack, the items go to the barn, the barn has a small amount of space, but it can be improved! You can only take items from the barn if you have more space in your backpack than there are items in the barn! 
 
 ### 🖼️ GAME SCREENSHOTS
 <details>
