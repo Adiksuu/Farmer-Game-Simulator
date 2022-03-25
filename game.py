@@ -19,6 +19,8 @@ cash = 0
 carrot_barn = 0
 barn_storage = 30
 barn_open = False
+barn_next = 50
+barn_cost = 200
 
 bp_multi = 1
 bp_multi_up = bp_multi + 1
@@ -62,12 +64,21 @@ energy_remover = 1
 day_time = 0
 night = False
 
+mine_open = False
+ores = 0
+ore_cost = 100
+ores_found = 0
+chance = 10
+ore_chance = '10%'
+ore_max = False
+ore_up = 1000
+
 # ------------------ (     GAME START - WHILE    ) -----------------
 
 while game_start == True:
 
     print('')
-    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.7 - Barn Update ' + Fore.LIGHTGREEN_EX + ')=---')
+    print(Fore.LIGHTGREEN_EX + ' ---=( ' + Fore.GREEN + 'FARMER GAME v1.8 - The Mine ' + Fore.LIGHTGREEN_EX + ')=---')
     print('')
 
     game_menu = True
@@ -135,6 +146,24 @@ while game_start == True:
             print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'The night has come!')
         else:
             night = False    
+
+        if chance == 10:
+            ore_chance = '10%'
+            ore_chance_next = '20%'
+        elif chance == 8:
+            ore_chance = '20%'
+            ore_chance_next = '30%'
+        elif chance == 6:
+            ore_chance = '30%'
+            ore_chance_next = '40%'
+        elif chance == 4:
+            ore_chance = '40%'
+            ore_chance_next = '50%'
+        elif chance == 2:
+            ore_chance = '50%'
+            ore_chance_next = 'MAX UPGRADE LEVEL'
+            ore_up = 'MAX UPGRADE LEVEL'
+            ore_max = True
 
         if house_level == 1:
             house_energy = 10
@@ -214,6 +243,7 @@ while game_start == True:
         print(Fore.CYAN + '7. ' + Fore.LIGHTCYAN_EX + 'Enter Code')
         print(Fore.CYAN + '8. ' + Fore.LIGHTCYAN_EX + 'Go home')
         print(Fore.CYAN + '9. ' + Fore.LIGHTCYAN_EX + 'Go barn')
+        print(Fore.CYAN + '10. ' + Fore.LIGHTCYAN_EX + 'The mine')
         print('')
 
         selected_option = input(Fore.BLUE + '>>> ' + Fore.LIGHTBLUE_EX + 'SELECTED OPTION: ')
@@ -279,6 +309,40 @@ while game_start == True:
                 print('')
                 print(Fore.MAGENTA + '---=( ' + Fore.LIGHTMAGENTA_EX + 'Selled!' + Fore.MAGENTA + ' )=---')
 
+        elif selected_option == '10':
+            mine_open = True
+            while mine_open == True:
+                print('')
+                print(Fore.LIGHTGREEN_EX + 'If you want to mine the ores, select "yes"! If not type "cancel"! If you want to sell, type "sell"')
+                mine = input(Fore.GREEN + 'Selected: ')
+                
+                if mine == 'yes':
+                    remain_mine = 10
+                    while remain_mine >= 1:
+                        print('')
+                        ores_found = random.randint(1,chance)
+                        if ores_found == 1:
+                            ores = ores + 1
+                            print(Fore.GREEN + '>>> ' + Fore.LIGHTGREEN_EX + 'Found ores! ' + Fore.GREEN + ' You have now: ' + str(ores) + ' ores')
+                        else:
+                            print(Fore.RED + '>>> ' + Fore.LIGHTRED_EX + 'Ores not found! ' + Fore.GREEN + ' You have now: ' + str(ores) + ' ores')
+                        remain_mine = remain_mine - 1
+                        energy = energy - 5
+                        time.sleep(1)
+                        if remain_mine == 0:
+                            mine_open = False
+
+                elif mine == 'cancel':
+                    mine_open = False
+
+                elif mine == 'sell':
+                    cash = cash + ore_cost * ores
+                    print(Fore.RED + '>>> Selled ' + str(ores) + ' ores!')
+                    ores = 0
+                    print(Fore.RED + '>>> You have now ' + str(cash) + ' cash!')
+                    mine_open = False
+
+
         elif selected_option == '9':
             barn_open = True
             while barn_open == True:
@@ -324,6 +388,10 @@ while game_start == True:
 
             print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '5.' + Fore.LIGHTGREEN_EX + ' Upgrade a house' + Fore.GREEN + ' You have now: ' + str(house_level) + ' level.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(house_level) + ' (' + str(house_energy) + ' energy per sleep) level' + ' --> ' + str(house_level_next) + ' (' + str(house_energy_next) + ' energy per sleep) level.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(house_cost))
 
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '6.' + Fore.LIGHTGREEN_EX + ' Upgrade a barn.' + Fore.GREEN + ' You have now: ' + str(barn_storage) + ' barn capitality.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(barn_storage) + ' --> ' + str(barn_next) + ' barn capitality.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(barn_cost))
+
+            print(Fore.LIGHTGREEN_EX + '>>> ' + Fore.GREEN + '7.' + Fore.LIGHTGREEN_EX + ' Upgrade a ore chance.' + Fore.GREEN + ' You have now: ' + str(ore_chance) + ' chance to get ore.' + Fore.LIGHTGREEN_EX + ' After upgrade: ' + Fore.GREEN + str(ore_chance) + ' --> ' + str(ore_chance_next) + ' chance to get ore.' + Fore.LIGHTGREEN_EX + ' Upgrade cost: ' + str(ore_up))
+
             print('')
 
             upgrade_selected = input(Fore.CYAN + 'Upgrade selected: ')
@@ -347,6 +415,29 @@ while game_start == True:
                 else:
                     print('')
                     print(Fore.RED + "You don't have " + str(carrot_grow_cost) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(carrot_grow_cost) + ' cash')
+
+            elif upgrade_selected == '6':
+                if cash >= barn_cost:
+                    barn_storage = barn_next
+                    barn_next = barn_next * 2
+                    cash = cash - barn_cost
+                    barn_cost = barn_cost * 2
+                else:
+                    print('')
+                    print(Fore.RED + "You don't have " + str(barn_cost) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(barn_cost) + ' cash')
+
+            elif upgrade_selected == '7':
+                if chance != 2:
+                    if cash >= ore_up:
+                        chance = chance - 2
+                        cash = cash - ore_up
+                        ore_up = ore_up * 2
+                    else:
+                        print('')
+                        print(Fore.RED + "You don't have " + str(ore_up) + ' cash!' + Fore.LIGHTRED_EX + ' You have: ' + str(cash) + ' / ' + str(ore_up) + ' cash')
+                else:
+                    print(Fore.LIGHTRED_EX + '>>> ' + Fore.RED + 'You have a max level of ore chance!')
+
 
             elif upgrade_selected == '5':
                 if house_level != 5:
