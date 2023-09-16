@@ -1,4 +1,9 @@
 ### 🌾 Farmer Game
+![image](https://github.com/Adiksuu/Farmer-Game-Simulator/assets/75419729/6aed8ff7-237c-41fe-99b1-7263a559b51c)
+- SOON...
+
+---
+
 ・It's a Farmer Game Simulator! 
 The game was made using Python. The project is constantly being developed! 
 
